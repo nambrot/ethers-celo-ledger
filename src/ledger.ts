@@ -14,9 +14,11 @@ const forwardErrors = [
 
 export class LedgerSigner extends Signer {
   private readonly ledger: Ledger
+
   constructor(public readonly provider: CeloProvider, public readonly chainId: number, public readonly derivationPath: string, ledgerTransport: any) {
     super()
     this.ledger = new Ledger(ledgerTransport)
+    Object.defineProperty(this, "_isSigner", { enumerable: true, value: true, writable: false })
   }
   connect(): Signer {
     throw new Error('Connect method unimplemented on LedgerSigner')
